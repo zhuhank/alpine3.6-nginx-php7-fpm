@@ -27,10 +27,13 @@ RUN echo "https://mirrors.aliyun.com/alpine/v3.6/main" > /etc/apk/repositories  
 	&& rm -rf /var/cache/apk/* \
 	#&& rm -rf /etc/nginx/conf.d/* \
 	&& mkdir -p /run/nginx \ 
-	&& mkdir /etc/supervisor.d \
-	&& ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log 
+	&& mkdir -p /var/log/supervisor \ 
+	&& mkdir /etc/supervisor.d 
+    
+	
 	
 COPY start.sh /start.sh
-EXPOSE 80 443	 
+COPY supervisor_nginx_php-fpm.ini /etc/supervisor.d
+EXPOSE 80 
+EXPOSE 443	 
 ENTRYPOINT ["sh","/start.sh"]

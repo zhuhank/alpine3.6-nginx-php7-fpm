@@ -1,6 +1,3 @@
 #!/bin/sh
-supervisord -c /etc/supervisord.conf \
-&& crond \
-&& nginx \
-&& php-fpm7 \
-&& top
+crond&&supervisord -n -c /etc/supervisord.conf
+
